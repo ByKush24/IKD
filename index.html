@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="tr" class="main1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>İzmir Kaynakçılar Derneği Üyelik Formu</title>
+    <style>
+      body {
+        font-family: sans-serif !important;
+        line-height: 1.6 !important;
+        margin: 20px !important;
+        background-color: #f4f4f4 !important;
+      }
+      .container {
+        max-width: 700px !important;
+        margin: auto !important;
+        background: #fff !important;
+        padding: 30px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
+      }
+      h1 {
+        text-align: center !important;
+        color: #333 !important;
+        margin-bottom: 20px !important;
+
+      }
+      .form-group {
+        margin-bottom: 15px !important;
+      }
+      label {
+        display: block !important;
+        margin-bottom: 5px !important;
+        font-weight: bold !important;
+        color: #555 !important;
+      }
+      .title-img-container {
+        text-align: center !important;
+        margin-bottom: 20px !important;
+        display: flex !important;
+        width: 100% !important;
+        justify-content: center !important;
+      }
+      .img-center {
+        display: block !important;
+        width: 50% !important;
+        aspect-ratio: 1/1 !important;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      input[type="tel"],
+      input[type="email"],
+      select,
+      textarea {
+        width: 100% !important;
+        padding: 10px !important;
+        border: 1px solid #ccc !important;
+        border-radius: 4px !important;
+        box-sizing: border-box !important; /* Prevents padding from affecting width */
+      }
+      textarea {
+        resize: vertical !important;
+        min-height: 80px !important;
+      }
+      input[readonly] {
+        background-color: #eee !important;
+        cursor: not-allowed !important;
+      }
+      .radio-group label,
+      .radio-group input {
+        margin-right: 10px !important;
+        width: auto !important;
+      }
+      .radio-group label {
+        font-weight: normal !important;
+        margin-bottom: 0 !important;
+        padding: 8px 15px !important;
+        border: 1px solid #ccc !important;
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        /* Enhanced transition for smoother animation */
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.1s ease-in-out !important;
+        display: inline-block !important; /* Ensure labels behave like buttons */
+        min-width: 80px !important; /* Ensure buttons have a minimum width */
+        text-align: center !important; /* Center text and symbol */
+      }
+      /* Hide the actual radio button */
+      .radio-group input[type="radio"] {
+        display: none !important;
+      }
+
+      /* Default hover */
+      .radio-group label:hover {
+        background-color: #eee !important;
+      }
+      /* Add a slight scale effect on hover/active for more feedback */
+      .radio-group label:active {
+          transform: scale(0.98) !important;
+      }
+
+
+      /* Specific styles for Erkek (Male) */
+      #erkek + label {
+        border-color: #007bff !important; /* Blue border */
+        color: #007bff !important; /* Blue text */
+      }
+      #erkek:checked + label {
+        background-color: #007bff !important; /* Blue background */
+        color: white !important;
+        border-color: #007bff !important;
+        transform: scale(1.02) !important; /* Slightly larger when selected */
+      }
+       #erkek:checked + label:hover {
+         background-color: #0056b3 !important; /* Darker blue on hover when selected */
+         border-color: #0056b3 !important;
+      }
+
+      /* Specific styles for Kadın (Female) */
+      #kadin + label {
+        border-color: #e83e8c !important; /* Pink border */
+        color: #e83e8c !important; /* Pink text */
+      }
+      #kadin:checked + label {
+        background-color: #e83e8c !important; /* Pink background */
+        color: white !important;
+        border-color: #e83e8c !important;
+        transform: scale(1.02) !important; /* Slightly larger when selected */
+      }
+       #kadin:checked + label:hover {
+         background-color: #c82376 !important; /* Darker pink on hover when selected */
+         border-color: #c82376 !important;
+      }
+
+      /* Style for bold symbols */
+      .radio-group label b {
+          font-weight: bold !important;
+      }
+
+
+      button {
+        margin: auto !important;
+        display: block !important;
+        width: fit-content !important;
+        padding: 12px !important;
+        background-color: #007bff !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 4px !important;
+        font-size: 16px !important;
+        cursor: pointer !important;
+        margin-top: 20px !important;
+        transition: background-color 0.3s ease-in-out !important; /* Smooth transition for button */
+      }
+      button:hover {
+        background-color: #0056b3 !important;
+      }
+      button:disabled {
+        background-color: #ccc !important;
+        cursor: not-allowed !important;
+      }
+      .required-star {
+        color: red !important;
+        margin-left: 2px !important;
+      }
+    </style>
+  </head>
+  <body class="mainBody1">
+    <div class="container">
+      <div class="title-img-container">
+        <img
+          class="img-center"
+          src="https://raw.githubusercontent.com/ByKush24/IKD/refs/heads/main/100000.svg"
+          alt=""
+          srcset=""
+        />
+</div>
+
+      <h1>Üyelik Başvuru Formu</h1>
+      <form id="membershipForm" action="#" method="post">
+        <!-- Replace # with your form processing endpoint -->
+
+        <div class="form-group">
+          <div>
+            <div style="display: inline-flex; gap: 10px">
+              <input type="checkbox" name="checkbox1" id="checkbox1" required />
+              <p style="font-size: 0.9em; color: #666">
+                5253 Sayılı Dernekler Kanunu ve Dernek Tüzüğünü okudum.<span class="required-star">*</span>
+              </p>
+            </div>
+            <div style="display: inline-flex; gap: 10px">
+              <input
+                type="checkbox"
+                name="checkbox2"
+                id="checkbox2"
+                style="
+                  font-size: 0.9em;
+                  margin-top: 0;
+                  height: fit-content;
+                  margin-block-start: 1.1em;
+                  margin-block-end: 1em;
+                "
+                required
+              />
+              <p style="font-size: 0.9em; color: #666">
+                Üyelik koşullarını taşıyorum. Derneğe üye olarak kabul edilmemi
+                arz ederim. Üyeliğe kabulüm halinde Dernekler Kanunu ve Dernek
+                Tüzüğü hükümlerine uymayı, dernek amaçlarının gerçekleşmesi için
+                yapılacak çalışmalara katılmayı ve üyelik aidatlarını zamanında
+                ödemeyi kabul ve taahhüt ederim. Verdiğim bilgilerin doğruluğunu
+                beyan ederim.<span class="required-star">*</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="tcKimlik"
+            >T.C. Kimlik Numarası<span class="required-star">*</span></label
+          >
+          <input
+            type="text"
+            id="tcKimlik"
+            name="tcKimlik"
+            maxlength="11"
+            placeholder="11 Haneli T.C. Kimlik Numaranız"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="ad">Ad<span class="required-star">*</span></label>
+          <input type="text" id="ad" name="ad" required />
+        </div>
+
+        <div class="form-group">
+          <label for="soyad">Soyad<span class="required-star">*</span></label>
+          <input type="text" id="soyad" name="soyad" required />
+        </div>
+
+        <div class="form-group">
+          <label for="babaAdi">Baba Adı<span class="required-star">*</span></label>
+          <input type="text" id="babaAdi" name="babaAdi" required />
+        </div>
+
+        <div class="form-group">
+          <label for="anneAdi">Anne Adı<span class="required-star">*</span></label>
+          <input type="text" id="anneAdi" name="anneAdi" required />
+        </div>
+
+        <div class="form-group">
+          <label for="dogumYeri">Doğum Yeri<span class="required-star">*</span></label>
+          <input type="text" id="dogumYeri" name="dogumYeri" required />
+        </div>
+
+        <div class="form-group">
+          <label for="dogumTarihi"
+            >Doğum Tarihi<span class="required-star">*</span></label
+          >
+          <input type="date" id="dogumTarihi" name="dogumTarihi" required />
+        </div>
+
+        <div class="form-group">
+          <label>Cinsiyet<span class="required-star">*</span></label>
+          <div class="radio-group">
+            <input type="radio" id="erkek" name="cinsiyet" value="Erkek" required/>
+            <label id="erkekLabel" for="erkek">♂ Erkek</label> 
+            <input type="radio" id="kadin" name="cinsiyet" value="Kadın" required />
+            <label id="kadinLabel" for="kadin">♀</b> Kadın</label> 
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="meslek">Meslek<span class="required-star">*</span></label>
+          <input
+            type="text"
+            id="meslek"
+            name="meslek"
+            value="Kaynakçı"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="egitimDurumu">Eğitim Durumu<span class="required-star">*</span></label>
+          <select id="egitimDurumu" name="egitimDurumu" required>
+            <option value="">Seçiniz...</option>
+            <option value="Okuryazar Değil">Okuryazar Değil</option>
+            <option value="Okuryazar">Okuryazar</option>
+            <option value="İlkokul">İlkokul</option>
+            <option value="Ortaokul">Ortaokul</option>
+            <option value="Lise">Lise</option>
+            <option value="Önlisans">Önlisans</option>
+            <option value="Lisans">Lisans</option>
+            <option value="Yüksek Lisans">Yüksek Lisans</option>
+            <option value="Doktora">Doktora</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="adres"
+            >İkametgah Adresi<span class="required-star">*</span></label
+          >
+          <textarea
+            id="adres"
+            name="adres"
+            placeholder="Mahalle, Sokak, No, Kapı No"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="telefon"
+            >Telefon Numarası (Cep, 0 olmadan Yazın)<span class="required-star">*</span></label
+          >
+          <input
+            type="tel"
+            id="telefon"
+            name="telefon"
+            placeholder="Örn: 5xxxxxxxxx"
+            pattern="[5]{1}[0-9]{9}"
+            maxlength="10"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-posta Adresi<span class="required-star">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="ornek@eposta.com"
+            required
+          />
+        </div>
+
+        <button disabled id="submitButton" type="submit">Üyelik Başvurusunu Gönder</button>
+      </form>
+    </div>
+    <!-- Make sure this script tag is present and uncommented -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Remove the old script link if it exists:
+        <script src="https://cdn.jsdelivr.net/gh/ByKush24/IKD@main/main.js"></script>
+    -->
+
+     <script> // Remove type="module" if it was added previously
+const form = document.getElementById("membershipForm");
+const checkbox1 = document.getElementById("checkbox1");
+const checkbox2 = document.getElementById("checkbox2");
+const tcKimlik = document.getElementById("tcKimlik");
+const ad = document.getElementById("ad");
+const soyad = document.getElementById("soyad");
+const babaAdi = document.getElementById("babaAdi"); // Added
+const anneAdi = document.getElementById("anneAdi"); // Added
+const dogumYeri = document.getElementById("dogumYeri"); // Added
+const dogumTarihi = document.getElementById("dogumTarihi");
+const cinsiyetRadios = document.querySelectorAll('input[name="cinsiyet"]');
+const meslek = document.getElementById("meslek");
+const egitimDurumu = document.getElementById("egitimDurumu"); // Added
+const adres = document.getElementById("adres");
+const telefon = document.getElementById("telefon");
+const email = document.getElementById("email"); // Added
+const submitButton = document.getElementById("submitButton");
+
+// REMOVE the import statement:
+// import { createClient } from 'jsr:@supabase/supabase-js@2'
+
+// Access createClient from the global supabase object provided by the CDN script
+// Ensure the variable name doesn't conflict if 'supabase' is used globally
+const supabaseClient = supabase.createClient('https://hrzzwxkoujvmmytymiqq.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhyenp3eGtvdWp2bW15dHltaXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NDgzOTEsImV4cCI6MjA2MjAyNDM5MX0.UJQxY3tDHX8nZb5v5T22dARwDR337LfKxYH735vXXvo')
+
+
+// List of required input/select/textarea fields (excluding checkboxes and radio which need special handling)
+const requiredInputs = [
+  tcKimlik,
+  ad,
+  soyad,
+  babaAdi, // Added
+  anneAdi, // Added
+  dogumYeri, // Added
+  dogumTarihi,
+  meslek,
+  egitimDurumu, // Added
+  adres,
+  telefon,
+  email, // Added
+];
+
+
+
+function checkFormValidity() {
+  let isFormValid = true;
+  console.log("--- Checking Form Validity ---"); // Start log
+
+  // 1. Check checkboxes
+  if (!checkbox1.checked || !checkbox2.checked) {
+    isFormValid = false;
+    console.log("Checkboxes not valid:", { cb1: checkbox1.checked, cb2: checkbox2.checked }); // Log checkbox state
+  } else {
+    console.log("Checkboxes valid.");
+  }
+
+  // 2. Check required text/date/tel/email/select/textarea inputs
+  requiredInputs.forEach((input) => {
+    if (!input) { // Check if the element exists
+        console.error("Required input element not found!");
+        isFormValid = false;
+        return; // Skip to next input if this one is missing
+    }
+
+    let currentInputValid = true;
+    // Check for select elements specifically for empty value
+    if (input.tagName === 'SELECT' && input.value === "") {
+        currentInputValid = false;
+    }
+    // Check other input types for trimmed empty value
+    else if (input.tagName !== 'SELECT' && !input.value.trim()) {
+      currentInputValid = false;
+    }
+    // Check validity state for inputs with patterns (like tel, email)
+    else if (input.checkValidity && !input.checkValidity()) {
+        currentInputValid = false;
+    }
+
+    if (!currentInputValid) {
+        isFormValid = false;
+        console.log(`Input invalid: ID=${input.id}, Tag=${input.tagName}, Value='${input.value}', Validity=${input.checkValidity ? input.checkValidity() : 'N/A'}`); // Log invalid input details
+    }
+  });
+  if (isFormValid) { // Only log if inputs passed so far
+      console.log("All required inputs valid.");
+  }
+
+
+  // 3. Check if a gender radio button is selected
+  let genderSelected = false;
+  cinsiyetRadios.forEach((radio) => {
+    if (radio.checked) {
+      genderSelected = true;
+    }
+  });
+  if (!genderSelected) {
+    isFormValid = false;
+    console.log("Gender not selected."); // Log gender state
+  } else {
+      console.log("Gender selected.");
+  }
+
+  // Enable/disable the button based on validity
+  console.log("Final isFormValid:", isFormValid); // Log final validity
+  submitButton.disabled = !isFormValid;
+  console.log("Submit button disabled:", submitButton.disabled); // Log button state
+  console.log("--- Finished Checking ---"); // End log
+}
+
+// Add event listeners to all relevant elements
+checkbox1.addEventListener("change", checkFormValidity);
+checkbox2.addEventListener("change", checkFormValidity);
+requiredInputs.forEach((input) => {
+  // Use 'input' for text fields, 'change' for select/radio/checkbox
+  const eventType = (input.tagName === 'SELECT' || input.type === 'checkbox' || input.type === 'radio' || input.type === 'date') ? 'change' : 'input';
+  input.addEventListener(eventType, checkFormValidity);
+});
+cinsiyetRadios.forEach((radio) => {
+  radio.addEventListener("change", checkFormValidity);
+});
+
+// Initial check when the page loads
+checkFormValidity();
+
+// Optional: Prevent form submission if button is somehow enabled incorrectly
+// or if you want to add more complex validation before actual submission
+form.addEventListener("submit", function (event) {
+  checkFormValidity(); // Final check before submitting
+  if (submitButton.disabled) {
+    event.preventDefault(); // Stop submission if form is invalid
+    console.log(
+      "Form submission prevented. Please fill all required fields correctly."
+    );
+    // Optionally, display a user-friendly message here
+  } else {
+    event.preventDefault(); // Stop submission if form is invalid
+    console.log("Form submitted (or would be submitted if action was set).");
+    // Here you would typically handle the form submission,
+    // e.g., using Fetch API to send data to a server.
+    // event.preventDefault(); // Uncomment this if you handle submission via JS (AJAX)
+    sendFormData(); // Call your function to handle form data
+  }
+});
+
+async function sendFormData() {
+  const formData = new FormData(form);
+  // remove the checkboxes from the FormData object
+  formData.delete("checkbox1");
+  formData.delete("checkbox2");
+  const data = Object.fromEntries(formData.entries());
+  console.log("Form Data:", data);
+  // the form will be sent to supabase project. 
+  // Here you would typically send the data to Supabase
+ /*
+const { data, error } = await supabase
+  .from('user_data')
+  .insert([
+    { some_column: 'someValue', other_column: 'otherValue' },
+  ])
+  .select()
+ */
+ const { data: insertedData, error } = await supabaseClient // Use supabaseClient here
+  .from('user_data')
+  .insert([
+    {
+      tcKimlik: data.tcKimlik,
+      ad: data.ad,
+      soyad: data.soyad,
+      babaAdi: data.babaAdi,
+      anneAdi: data.anneAdi,
+      dogumYeri: data.dogumYeri,
+      dogumTarihi: data.dogumTarihi,
+      cinsiyet: data.cinsiyet,
+      meslek: data.meslek,
+      egitimDurumu: data.egitimDurumu,
+      adres: data.adres,
+      telefon: data.telefon,
+      email: data.email
+
+
+    }
+  ])
+  .select(); // Ensure to select the inserted data
+  if (error) {
+    console.error("Error inserting data:", error);
+  } else {
+    console.log("Data inserted successfully:", insertedData);
+  }
+}
+</script>
+
+  </body>
+</html>
