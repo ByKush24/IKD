@@ -163,6 +163,45 @@
         color: red !important;
         margin-left: 2px !important;
       }
+
+      /* Notification Styles */
+      .notification-area {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .notification {
+        padding: 15px 20px;
+        border-radius: 5px;
+        color: white;
+        font-size: 1em;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        min-width: 250px; /* Adjust as needed */
+        max-width: 350px; /* Adjust as needed */
+      }
+
+      .notification.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .notification.success {
+        background-color: #28a745; /* Green for success */
+        border-left: 5px solid #1e7e34;
+      }
+
+      .notification.error {
+        background-color: #dc3545; /* Red for error */
+        border-left: 5px solid #b02a37;
+      }
     </style>
   </head>
   <body class="mainBody1">
@@ -345,6 +384,8 @@
         <script src="https://cdn.jsdelivr.net/gh/ByKush24/IKD@main/main.js"></script>
     -->
 
+    <div id="notification-area" class="notification-area"></div> 
+
      <script> // Remove type="module" if it was added previously
 const form = document.getElementById("membershipForm");
 const checkbox1 = document.getElementById("checkbox1");
@@ -371,6 +412,31 @@ const submitButton = document.getElementById("submitButton");
 // Ensure the variable name doesn't conflict if 'supabase' is used globally
 const supabaseClient = supabase.createClient('https://hrzzwxkoujvmmytymiqq.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhyenp3eGtvdWp2bW15dHltaXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NDgzOTEsImV4cCI6MjA2MjAyNDM5MX0.UJQxY3tDHX8nZb5v5T22dARwDR337LfKxYH735vXXvo')
 
+const notificationArea = document.getElementById('notification-area');
+
+function showNotification(message, type = 'success', duration = 5000) {
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`; // e.g., 'notification success' or 'notification error'
+  notification.textContent = message;
+
+  notificationArea.appendChild(notification);
+
+  // Trigger the animation
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 10); // Small delay to ensure transition is applied
+
+  // Automatically remove the notification after 'duration'
+  setTimeout(() => {
+    notification.classList.remove('show');
+    // Remove the element from DOM after animation completes
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 500); // Matches the CSS transition duration
+  }, duration);
+}
 
 // List of required input/select/textarea fields (excluding checkboxes and radio which need special handling)
 const requiredInputs = [
@@ -481,7 +547,7 @@ form.addEventListener("submit", function (event) {
     );
     // Optionally, display a user-friendly message here
   } else {
-    // event.preventDefault(); // Stop submission if form is invalid
+    event.preventDefault(); // Stop submission if form is invalid
     console.log("Form submitted (or would be submitted if action was set).");
     // Here you would typically handle the form submission,
     // e.g., using Fetch API to send data to a server.
@@ -496,46 +562,69 @@ async function sendFormData() {
   formData.delete("checkbox1");
   formData.delete("checkbox2");
   const data = Object.fromEntries(formData.entries());
-  console.log("Form Data:", data);
-  // the form will be sent to supabase project. 
+  console.log("Form Data to be processed:", data);
+
+  // Check if TC Kimlik already exists
+  const tcKimlikToCheck = data.tcKimlik;
+  if (!tcKimlikToCheck) {
+    console.error("TC Kimlik is missing from form data. Cannot check for duplicates.");
+    showNotification("T.C. Kimlik Numarası eksik. Lütfen formu kontrol edin.", "error");
+    return;
+  }
+
+  console.log(`Checking if TC Kimlik ${tcKimlikToCheck} already exists...`);
+  const { data: existingUser, error: fetchError } = await supabaseClient
+    .from('user_data')
+    .select('tcKimlik')
+    .eq('tcKimlik', tcKimlikToCheck);
+
+  if (fetchError) {
+    console.error("Error checking for existing TC Kimlik:", fetchError);
+    showNotification("Kayıt kontrolü sırasında bir hata oluştu. Lütfen tekrar deneyin.", "error");
+    return;
+  }
+
+  if (existingUser && existingUser.length > 0) {
+    console.log(`TC Kimlik ${tcKimlikToCheck} already exists in the database.`);
+    showNotification(`Bu T.C. Kimlik Numarası (${tcKimlikToCheck}) ile daha önce kayıt yapılmış.`, "error");
+    return; // Stop further processing
+  }
+
+  console.log(`TC Kimlik ${tcKimlikToCheck} does not exist. Proceeding with insertion.`);
+  // the form will be sent to supabase project.
   // Here you would typically send the data to Supabase
- /*
-const { data, error } = await supabase
-  .from('user_data')
-  .insert([
-    { some_column: 'someValue', other_column: 'otherValue' },
-  ])
-  .select()
- */
- const { data: insertedData, error } = await supabaseClient // Use supabaseClient here
-  .from('user_data')
-  .insert([
-    {
-      tcKimlik: data.tcKimlik,
-      ad: data.ad,
-      soyad: data.soyad,
-      babaAdi: data.babaAdi,
-      anneAdi: data.anneAdi,
-      dogumYeri: data.dogumYeri,
-      dogumTarihi: data.dogumTarihi,
-      cinsiyet: data.cinsiyet,
-      meslek: data.meslek,
-      egitimDurumu: data.egitimDurumu,
-      adres: data.adres,
-      telefon: data.telefon,
-      email: data.email
+  const { data: insertedData, error: insertError } = await supabaseClient // Use supabaseClient here
+    .from('user_data')
+    .insert([
+      {
+        tcKimlik: data.tcKimlik,
+        ad: data.ad,
+        soyad: data.soyad,
+        babaAdi: data.babaAdi,
+        anneAdi: data.anneAdi,
+        dogumYeri: data.dogumYeri,
+        dogumTarihi: data.dogumTarihi,
+        cinsiyet: data.cinsiyet,
+        meslek: data.meslek,
+        egitimDurumu: data.egitimDurumu,
+        adres: data.adres,
+        telefon: data.telefon,
+        email: data.email
+      }
+    ])
+    .select(); // Ensure to select the inserted data
 
-
-    }
-  ])
-  .select(); // Ensure to select the inserted data
-  if (error) {
-    console.error("Error inserting data:", error);
+  if (insertError) {
+    console.error("Error inserting data:", insertError);
+    showNotification("Veri kaydedilirken bir hata oluştu. Lütfen tekrar deneyin.", "error");
   } else {
     console.log("Data inserted successfully:", insertedData);
+    showNotification("Üyelik başvurunuz başarıyla alınmıştır!", "success");
+    form.reset(); // Optionally reset the form after successful submission
+    checkFormValidity(); // Re-check validity to disable submit button
   }
 }
-</script>
 
+</script>
   </body>
 </html>
